@@ -12,7 +12,7 @@ const BestSelling = () => {
    if (isLoading) return <h1>Loading....</h1>;
   console.log(data);
   return (
-    <div className="container mt-24">
+    <div className="container my-16">
       <h1 className="font-bold text-2xl m-2">ALL PRODUCTS</h1>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {data.map((product) => (

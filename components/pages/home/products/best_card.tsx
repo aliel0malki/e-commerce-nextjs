@@ -21,7 +21,7 @@ const BestSellingCard = ({ id, name, description, price, img }) => {
     >
       <CardHeader className="p-0 pb-4">
         <Image
-          src={"https://picsum.photos/500"}
+          src={`${img}`}
           width={1260}
           height={750}
           alt={name}

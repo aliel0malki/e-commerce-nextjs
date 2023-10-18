@@ -11,7 +11,7 @@ const sleep = <T extends any>(delay: number, resolveValue?: T): Promise<T> =>
   });
 
 export default function addForm() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -19,22 +19,20 @@ export default function addForm() {
     formState: { errors, isSubmitting },
   } = useForm();
   const onSubmit = async (data) => {
-    
     createProduct.mutate(data);
-    
   };
-   const createProduct = useMutation({
+  const createProduct = useMutation({
     mutationFn: (product) => {
       return addProduct(product);
-    },onSuccess: () => {
-    reset();
-    return queryClient.invalidateQueries({ queryKey: ['products'] })
-    
-      },
+    },
+    onSuccess: () => {
+      reset();
+      return queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
   });
   return (
     <form
-      className="md:mx-28 flex flex-wrap gap-6 lg:mx-36"
+      className="md:mx-28 mb-20 flex flex-wrap gap-6 lg:mx-36"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
@@ -57,7 +55,7 @@ export default function addForm() {
       />
 
       {errors.productName ? (
-        <span className="text-red-600">There is Error!</span>
+        <span className="text-red-600">There is Error! Try again</span>
       ) : (
         ""
       )}
@@ -66,7 +64,7 @@ export default function addForm() {
       </Button>
 
       {createProduct.isSuccess ? (
-        <h1 className="text-red-600 font-bold italic">Added successfully!</h1>
+        <h1 className="text-green-600 font-bold italic">Added successfully!</h1>
       ) : (
         ""
       )}

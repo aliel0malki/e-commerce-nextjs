@@ -3,28 +3,34 @@ import AddForm from "@/components/pages/dashboard/addProductForm";
 import Link from "next/link";
 import { db } from "@/lib/pocketbase";
 import useStore from "@/lib/useStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { userStore } from "@/state/user";
 
 const Dashboard = () => {
   const user = useStore(userStore, (state) => state.user);
   const clearUser = userStore((state) => state.clearUser);
-
+  const [login, setIsLogin] = useState(true);
   useEffect(() => {
-    if (user == null) {
+    if (!login) {
       db.authStore.clear();
     }
-
   }, [user]);
 
   return (
     <>
       {user ? (
-        <div  className="container mt-16">
+        <div className="container mt-16">
           Move to <Link href="/">Home</Link>
           <h1>username : {user?.meta?.name ?? ""}</h1>
-          <Button onClick={() => clearUser()}>LOGOUT</Button>
+          <Button
+            onClick={() => {
+              setIsLogin(false);
+              return clearUser();
+            }}
+          >
+            LOGOUT
+          </Button>
           <h1 className="text-2xl font-bold my-6">ADD NEW PRODUCT</h1>
           <AddForm />
         </div>
